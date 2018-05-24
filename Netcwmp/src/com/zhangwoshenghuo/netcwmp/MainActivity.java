@@ -1,18 +1,69 @@
 package com.zhangwoshenghuo.netcwmp;
 
 
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 
 public class MainActivity extends Activity {
 
+	
+	Button bt1,bt2;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        bt1 = (Button)findViewById(R.id.btest);
+        bt2 = (Button)findViewById(R.id.blaunch);
+        bt1.setOnClickListener(new OnClickListener(){
+        JniInter jniInter = new JniInter();
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				
+				Thread th = new Thread(new Runnable(){
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						jniInter.tr111test();
+					}
+					
+				});
+				th.start();
+
+				
+			}
+        	
+        });
+        
+        bt2.setOnClickListener(new OnClickListener(){
+        	JniInter jniInter = new JniInter();
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Thread th = new Thread(new Runnable(){
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						jniInter.tr069launch();
+					}
+					
+				});
+				th.start();
+
+			}
+        	
+        });
+        
     }
 
     @Override

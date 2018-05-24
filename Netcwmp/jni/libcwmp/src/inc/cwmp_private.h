@@ -32,6 +32,7 @@ struct  device_id_st
     char *model_name;
     char *product_class;
     char *serial_number;
+    char *stbid;
 } ;
 
 

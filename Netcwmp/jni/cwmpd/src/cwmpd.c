@@ -66,10 +66,10 @@ int cwmp_set_var(cwmp_t * cwmp)
     FUNCTION_TRACE();
 
 
-    cwmp_bzero(cwmp, sizeof(cwmp_t));
-    cwmp->new_request = CWMP_TRUE;
-    pool_t * pool = pool_create(POOL_DEFAULT_SIZE);
-    cwmp->pool = pool;
+    cwmp_bzero(cwmp, sizeof(cwmp_t));//初始化内存空间
+    cwmp->new_request = CWMP_TRUE;//此处断定cwmp为新请求设备启动时运行
+    pool_t * pool = pool_create(POOL_DEFAULT_SIZE);//申请池空间
+    cwmp->pool = pool;//为cwmp赋予池空间
 
 
     cwmp_event_init(cwmp);
@@ -111,13 +111,13 @@ int main(int argc, char **argv)
     pid = getpid();
 
 //    cwmp_log_init("/var/log/cwmpd.log", CWMP_LOG_DEBUG);
-    cwmp_log_init(NULL, CWMP_LOG_DEBUG);
+    cwmp_log_init("/system/etc/cwmpd.log", CWMP_LOG_DEBUG);
     cwmp_global_pool = pool_create(POOL_DEFAULT_SIZE);
     cwmp = pool_palloc(cwmp_global_pool, sizeof(cwmp_t));
 
     cwmp_conf_open("/system/etc/cwmp.conf");
     
-    cwmp_enable=cwmp_conf_get_int("cwmp:enable");
+    cwmp_enable=cwmp_conf_get_int("cwmp:enable");//读取配置文件中的enable的值，使能读取配置文件功能
     if(!cwmp_enable)
     {
         exit(-1);    
@@ -130,7 +130,7 @@ int main(int argc, char **argv)
     cwmp_set_var(cwmp);
     cwmp_daemon();
     
-    cwmp_conf_init(cwmp);
+    cwmp_conf_init(cwmp);//将cwmp.conf内容赋给cwmp
 
 #ifdef USE_CWMP_OPENSSL
     cwmp_init_ssl(cwmp);
@@ -143,4 +143,50 @@ int main(int argc, char **argv)
 }
 
 
+int tr069launch(int argc, char **argv)
+{
+
+    cwmp_pid_t pid;
+    cwmp_t * cwmp;
+
+    int syslog_enable = 0;
+    int cwmp_enable = 0;
+
+#ifdef WIN32
+    WSADATA wsaData;
+    WSAStartup(MAKEWORD(2, 2), &wsaData);
+#endif
+    pid = getpid();
+
+//    cwmp_log_init("/var/log/cwmpd.log", CWMP_LOG_DEBUG);
+    cwmp_log_init("/system/etc/cwmpd.log", CWMP_LOG_DEBUG);
+    cwmp_global_pool = pool_create(POOL_DEFAULT_SIZE);
+    cwmp = pool_palloc(cwmp_global_pool, sizeof(cwmp_t));
+
+    cwmp_conf_open("/system/etc/cwmp.conf");
+
+    cwmp_enable=cwmp_conf_get_int("cwmp:enable");//读取配置文件中的enable的值，使能读取配置文件功能
+    if(!cwmp_enable)
+    {
+        exit(-1);
+    }
+
+    cwmp_getopt(argc, argv);
+
+    //cwmp_init_db();
+
+    cwmp_set_var(cwmp);
+    cwmp_daemon();
+
+    cwmp_conf_init(cwmp);//将cwmp.conf内容赋给cwmp
+
+#ifdef USE_CWMP_OPENSSL
+    cwmp_init_ssl(cwmp);
+#endif
+
+    cwmp_model_load(cwmp, "/system/etc/device.xml");
+    cwmp_process_start_master(cwmp);
+
+    return 0;
+}
 

@@ -84,6 +84,50 @@ static void * cwmp_worker_thread_udpd(cwmp_t * cwmp)
     return NULL;
 }
 
+static unsigned int cwmp_worker_thread_accept_event(cwmp_t * cwmp)
+{
+
+
+	int server_sockfd,client_sockfd;
+	int server_len,client_len;
+	struct sockaddr_in server_address;
+	struct sockaddr_in client_address;
+
+	server_sockfd = socket(AF_INET,SOCK_STREAM,0);
+
+	server_address.sin_family = AF_INET;
+	server_address.sin_addr.s_addr = inet_addr("127.0.0.1");
+	server_address.sin_port = 9734;
+	server_len = sizeof(server_address);
+
+	bind(server_sockfd,(struct sockaddr*)&server_address,server_len);
+
+	listen(server_sockfd,5);
+
+	while(1){
+		char ch;
+		cwmp_log_debug("cwmp_worker_thread_accept_event waiting");
+		client_len = sizeof(client_address);
+		client_sockfd = accept(server_sockfd,
+				(struct sockaddr*)&client_address,&client_len);
+		read(client_sockfd,&ch,1);
+		if(ch=='C'){
+			cwmp_log_debug("cwmp_worker_thread_accept_event recv %c is C now 6 event start",ch);
+		    cwmp->new_request = CWMP_YES;
+			cwmp_log_debug("set cwmp new request to %d\n", cwmp->new_request);
+			cwmp_event_set_value(cwmp, INFORM_CONNECTIONREQUEST, 1, NULL, 0, 0, 0);
+			write(client_sockfd,"Y",1);
+		}else{
+			cwmp_log_debug("cwmp_worker_thread_accept_event recv %c not C",ch);
+			write(client_sockfd,"N",1);
+		}
+		close(client_sockfd);
+	}
+
+	return 0;
+
+}
+
 #ifdef WIN32
 static unsigned int __stdcall cwmp_worker_thread_httpd(cwmp_t * cwmp)
 #else
@@ -117,6 +161,7 @@ void cwmp_worker_thread_start(cwmp_t * cwmp)
     pthread_t th1, th2, th3;
     pthread_create(&th1, NULL, (void*)cwmp_worker_thread_httpd, cwmp);
 //    pthread_create(&th2, NULL, (void*)cwmp_worker_thread_tasks, cwmp);
+    pthread_create(&th2, NULL, (void*)cwmp_worker_thread_accept_event, cwmp);
 
 #endif
     cwmp_agent_session(cwmp);

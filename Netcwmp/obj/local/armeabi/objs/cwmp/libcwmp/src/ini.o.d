@@ -1,9 +1,10 @@
 obj/local/armeabi/objs/cwmp/libcwmp/src/ini.o: jni/libcwmp/src/ini.c \
- jni/libcwmp/src/inc/ini.h \
- D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/stdio.h \
+ D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/sys/system_properties.h \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/sys/cdefs.h \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/sys/cdefs_elf.h \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/android/api-level.h \
+ jni/libcwmp/src/inc/ini.h \
+ D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/stdio.h \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/sys/types.h \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/stdint.h \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/sys/_types.h \
@@ -24,15 +25,17 @@ obj/local/armeabi/objs/cwmp/libcwmp/src/ini.o: jni/libcwmp/src/ini.c \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/strings.h \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/memory.h
 
-jni/libcwmp/src/inc/ini.h:
-
-D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/stdio.h:
+D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/sys/system_properties.h:
 
 D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/sys/cdefs.h:
 
 D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/sys/cdefs_elf.h:
 
 D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/android/api-level.h:
+
+jni/libcwmp/src/inc/ini.h:
+
+D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/stdio.h:
 
 D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/sys/types.h:
 

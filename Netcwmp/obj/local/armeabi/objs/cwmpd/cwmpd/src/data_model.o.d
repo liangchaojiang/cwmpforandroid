@@ -81,6 +81,8 @@ obj/local/armeabi/objs/cwmpd/cwmpd/src/data_model.o: \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/asm/ioctls.h \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/asm/termbits.h \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/sys/ioctl_compat.h \
+ D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/sys/un.h \
+ D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/linux/un.h \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/net/if.h \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/linux/if.h \
  D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/linux/hdlc/ioctl.h \
@@ -296,6 +298,10 @@ D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/asm/ioctls
 D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/asm/termbits.h:
 
 D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/sys/ioctl_compat.h:
+
+D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/sys/un.h:
+
+D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/linux/un.h:
 
 D:/Android/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/net/if.h:
 

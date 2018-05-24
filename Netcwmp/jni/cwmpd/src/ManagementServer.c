@@ -105,16 +105,39 @@ int cpe_set_igd_ms_url(cwmp_t * cwmp, const char * name, const char * value, int
 
 
 //InternetGatewayDevice.ManagementServer.ConnectionRequestURL
+
 int cpe_get_igd_ms_connectionrequesturl(cwmp_t * cwmp, const char * name, char ** value, pool_t * pool)
 {
     char buf[256]={0};
     char local_ip[32]={0};
-    cpe_get_localip("eth1", local_ip);
+    cpe_get_localip("eth0", local_ip);
     int port = cwmp_conf_get_int("cwmpd:httpd_port");
     snprintf(buf, 256, "http://%s:%d", local_ip, port);
     *value = PSTRDUP(buf);
     return FAULT_CODE_OK;
 }
+
+
+//modify by andy yang
+/*int cpe_get_igd_ms_connectionrequesturl(cwmp_t * cwmp, const char * name, char ** value, pool_t * pool)
+{
+    char buf[256]={0};
+    snprintf(buf, 256, "http://192.168.20.108:5400");
+    *value = PSTRDUP(buf);
+    return FAULT_CODE_OK;
+    #if 0
+    char buf[256]={0};
+    char local_ip[32]={0};
+    cpe_get_localip("eth0", local_ip);
+    int port = cwmp_conf_get_int("cwmpd:httpd_port");
+    snprintf(buf, 256, "http://%s:%d", local_ip, port);
+    *value = PSTRDUP(buf);
+    return FAULT_CODE_OK;
+    #endif
+}*/
+
+
+
 
 //InternetGatewayDevice.ManagementServer.ConnectionRequestUsername
 int cpe_get_igd_ms_connectionrequestusername(cwmp_t * cwmp, const char * name, char ** value, pool_t * pool)
@@ -141,6 +164,31 @@ int cpe_set_igd_ms_connectionrequestpassword(cwmp_t * cwmp, const char * name, c
 	cwmp_conf_set("cwmp:cpe_password", value);
     return FAULT_CODE_OK;
 }
+
+int cpe_get_igd_ms_url_PeriodicInformEnable(cwmp_t * cwmp, const char * name, char ** value, pool_t * pool)
+{
+     *value = cwmp_conf_pool_get(pool, "cwmp:PeriodicInformEnable");
+     return FAULT_CODE_OK;
+}
+
+int cpe_set_igd_ms_url_PeriodicInformEnable(cwmp_t * cwmp, const char * name, const char * value, int length, callback_register_func_t callback_reg)
+{
+ 	cwmp_conf_set("cwmp:PeriodicInformEnable", value);
+    return FAULT_CODE_OK;
+}
+
+int cpe_get_igd_ms_url_PeriodicInformInterval(cwmp_t * cwmp, const char * name, char ** value, pool_t * pool)
+{
+    *value = cwmp_conf_pool_get(pool, "cwmp:PeriodicInformInterval");
+    return FAULT_CODE_OK;
+}
+
+int cpe_set_igd_ms_url_PeriodicInformInterval(cwmp_t * cwmp, const char * name, const char * value, int length, callback_register_func_t callback_reg)
+{
+  	cwmp_conf_set("cwmp:PeriodicInformInterval", value);
+  	return FAULT_CODE_OK;
+}
+
 
 
 

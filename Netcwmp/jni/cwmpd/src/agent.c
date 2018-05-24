@@ -139,7 +139,7 @@ int cwmp_agent_get_active_event(cwmp_t *cwmp, cwmp_session_t * session,  event_l
     int elsize = cwmp->el->count;
     for(i=0; i<elsize; i++)
     {      
-        
+
 	if(pec[i]  && pec[i]->ref > 0)
         {
          
@@ -210,13 +210,13 @@ void cwmp_agent_start_session(cwmp_t * cwmp)
         }
         cwmp_log_debug("New request from ACS\n");
         cwmp->new_request = CWMP_NO;
-        session = cwmp_session_create(cwmp);
+        session = cwmp_session_create(cwmp);//将cwmp内容赋给session
         session_close  = CWMP_NO;
         session->timeout = cwmp_conf_get_int("cwmpd:http_timeout");
         //cwmp_session_set_timeout(cwmp_conf_get_int("cwmpd:http_timeout"));
         cwmp_log_debug("session timeout is %d", session->timeout);
 		
-        cwmp_session_open(session);
+        cwmp_session_open(session);//为session添加池空间用来存放数据
 
         while (!session_close)
         {
@@ -228,7 +228,7 @@ void cwmp_agent_start_session(cwmp_t * cwmp)
                 //create a new connection to acs
                 cwmp_log_debug("session stutus: New START\n");
 
-                if (cwmp_session_connect(session, cwmp->acs_url) != CWMP_OK)
+                if (cwmp_session_connect(session, cwmp->acs_url) != CWMP_OK)//建立连接
                 {
                     cwmp_log_error("connect to acs: %s failed.\n", cwmp->acs_url);
                     session->status = CWMP_ST_RETRY;
@@ -614,7 +614,7 @@ void cwmp_agent_session(cwmp_t * cwmp)
     
 
 
-    CWMP_SPRINTF_PARAMETER_NAME(name, 3, InternetGatewayDeviceModule, ManagementServerModule, URLModule);
+ /*   CWMP_SPRINTF_PARAMETER_NAME(name, 3, InternetGatewayDeviceModule, ManagementServerModule, URLModule);
     cwmp_data_set_parameter_value(cwmp, cwmp->root, name, cwmp->acs_url, TRstrlen(cwmp->acs_url), cwmp->pool);
 
     CWMP_SPRINTF_PARAMETER_NAME(name, 3, InternetGatewayDeviceModule, ManagementServerModule, ConnectionRequestURLModule);
@@ -632,7 +632,7 @@ void cwmp_agent_session(cwmp_t * cwmp)
     cwmp_data_set_parameter_value(cwmp, cwmp->root, name, cwmp->cpe_pc, TRstrlen(cwmp->cpe_pc), cwmp->pool);
 
     CWMP_SPRINTF_PARAMETER_NAME(name, 3, InternetGatewayDeviceModule, DeviceInfoModule, SerialNumberModule);
-    cwmp_data_set_parameter_value(cwmp, cwmp->root, name, cwmp->cpe_sn, TRstrlen(cwmp->cpe_sn), cwmp->pool);
+    cwmp_data_set_parameter_value(cwmp, cwmp->root, name, cwmp->cpe_sn, TRstrlen(cwmp->cpe_sn), cwmp->pool);*/
 
 
     cwmp_agent_start_session(cwmp);
@@ -815,7 +815,7 @@ int cwmp_agent_download_file(download_arg_t * dlarg)
 {
     int faultcode = 0;
     char * fromurl = dlarg->url;
-    char * tofile = "/tmp/download.img";
+    char * tofile = "/system/etc/download.img";
 
     FUNCTION_TRACE();
 
@@ -849,16 +849,16 @@ int cwmp_agent_upload_file(upload_arg_t * ularg)
 	{
 		//根据实际情况, 修改这里的配置文件路径
 		
-		fromfile = "/tmp/mysystem.cfg";
+		fromfile = "/system/etc/mysystem.cfg";
 	}
 	else if(strcpy(ularg->filetype, "2 Vendor Log File") == 0)
 	{
 		//根据实际情况, 修改这里的配置文件路径
-		fromfile = "/tmp/mysystem.log";
+		fromfile = "/system/etc/mysystem.log";
 	}
 	else
 	{
-		fromfile = "/tmp/mysystem.cfg";
+		fromfile = "/system/etc/mysystem.cfg";
 	}
 	
     faultcode = http_send_file(fromfile, ularg->url);
@@ -935,6 +935,7 @@ int cwmp_agent_run_tasks(cwmp_t * cwmp)
 					cwmp_event_set_value(cwmp, INFORM_MREBOOT, 1, NULL, 0, 0, 0);
 					cwmp_event_clear_active(cwmp);
 					//system("reboot");
+					system("/system/bin/sh -c \"reboot\"");
 				}
 				break;
 
@@ -945,6 +946,7 @@ int cwmp_agent_run_tasks(cwmp_t * cwmp)
 					
 					cwmp_event_clear_active(cwmp);
 					//system("factoryreset");
+					system("/system/bin/sh -c \"am broadcast -a android.intent.action.MASTER_CLEAR\"");
 				}
 				break;
 

@@ -172,11 +172,17 @@
 #define DeviceSummaryModule                 "DeviceSummary"
 #define DeviceInfoModule                    "DeviceInfo"
 
+#define StbDeviceModule						"Device"
+
+
+
 #define ManufacturerModule                  "Manufacturer"
 #define ManufacturerOUIModule               "ManufacturerOUI"
+#define ModelName							"ModelName"
 #define ProductClassModule                  "ProductClass"
 #define DescriptionModule                   "Description"
 #define SerialNumberModule                  "SerialNumber"
+#define StbId								"StbId"
 #define SpecVersionModule                   "SpecVersion"
 #define HardwareVersionModule               "HardwareVersion"
 #define SoftwareVersionModule               "SoftwareVersion"
@@ -312,7 +318,7 @@ enum InformEventType
 struct cwmp_st
 {
 	cwmp_t			* old_cwmp;
-	int new_request;
+	int new_request;//判断是否为新请求
 	int httpd_port;
 
 	int    cpe_auth;
@@ -320,9 +326,11 @@ struct cwmp_st
 
 	char * acs_url;
 	char * cpe_mf;
+	char * cpe_summary;
 	char * cpe_oui;
 	char * cpe_sn;
 	char * cpe_pc;
+	char * cpe_stbid;
 	char * cpe_name;
 
 	char * acs_user;
@@ -330,7 +338,11 @@ struct cwmp_st
 	char * cpe_user;
 	char * cpe_pwd;
 
+	char * PeriodicInformEnable;
+	char * PeriodicInformInterval;
+
 	char * event_filename;
+
 
 	pthread_mutex_t     event_mutex;
 	

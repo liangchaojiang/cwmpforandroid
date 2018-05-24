@@ -5,10 +5,13 @@
 
 model_func_t ModelFunction[] =
 {
+	{"cpe_get_igd_device_summary",cpe_get_igd_device_summary},
     {"cpe_get_igd_di_manufacturer", cpe_get_igd_di_manufacturer},
     {"cpe_get_igd_di_manufactureroui", cpe_get_igd_di_manufactureroui},
+    {"cpe_get_igd_di_modelname", cpe_get_igd_di_modelname},
     {"cpe_get_igd_di_productclass", cpe_get_igd_di_productclass},
     {"cpe_get_igd_di_serialnumber", cpe_get_igd_di_serialnumber},
+    {"cpe_get_igd_di_stbid",cpe_get_igd_di_stbid},
     {"cpe_get_igd_di_specversion", cpe_get_igd_di_specversion},
     {"cpe_get_igd_di_hardwareversion", cpe_get_igd_di_hardwareversion},
     {"cpe_get_igd_di_softwareversion", cpe_get_igd_di_softwareversion},
@@ -21,6 +24,11 @@ model_func_t ModelFunction[] =
     {"cpe_get_igd_ms_connectionrequestpassword", cpe_get_igd_ms_connectionrequestpassword},
     {"cpe_set_igd_ms_connectionrequestusername", cpe_set_igd_ms_connectionrequestusername},
     {"cpe_set_igd_ms_connectionrequestpassword", cpe_set_igd_ms_connectionrequestpassword},
+
+    {"cpe_get_igd_ms_url_PeriodicInformEnable", cpe_get_igd_ms_url_PeriodicInformEnable},
+    {"cpe_set_igd_ms_url_PeriodicInformEnable", cpe_set_igd_ms_url_PeriodicInformEnable},
+    {"cpe_get_igd_ms_url_PeriodicInformInterval", cpe_get_igd_ms_url_PeriodicInformInterval},
+    {"cpe_set_igd_ms_url_PeriodicInformInterval", cpe_set_igd_ms_url_PeriodicInformInterval},
 
 
 	{"cpe_refresh_igd_wandevice", cpe_refresh_igd_wandevice},

@@ -32,6 +32,7 @@
 #include "cwmp_process.h"
 #include "cwmp_thread.h"
 
+int tr069launch(int argc, char **argv);
 
 
 

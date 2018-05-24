@@ -20,11 +20,11 @@
 
 
 
-#define ACS_CA_PATH         "/etc/acs.crt"
-#define CPE_CA_PATH         "/etc/cpe.crt"
-#define CPE_COOKIE_FILE     "/tmp/cwmp.cookie"
-#define UPLOAD_CONF_FILE     "/backup/config.cfg"
-#define UPLOAD_LOG_FILE      "/var/log/cwmplog.tar.gz"
+#define ACS_CA_PATH         "/system/etc/acs.crt"
+#define CPE_CA_PATH         "/system/etc/cpe.crt"
+#define CPE_COOKIE_FILE     "/system/etc/cwmp.cookie"
+#define UPLOAD_CONF_FILE     "/system/etc/config.cfg"
+#define UPLOAD_LOG_FILE      "/system/etc/cwmplog.tar.gz"
 
 typedef struct cwmp_session_t cwmp_session_t;
 

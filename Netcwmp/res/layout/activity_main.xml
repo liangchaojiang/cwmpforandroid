@@ -9,8 +9,23 @@
     tools:context="com.zhangwoshenghuo.netcwmp.MainActivity" >
 
     <TextView
+        android:id="@+id/ttest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
+    <Button
+        android:layout_below="@id/ttest"
+        android:id="@+id/btest"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="test"
+        />
+        <Button
+        android:layout_below="@id/btest"
+        android:id="@+id/blaunch"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="launch"
+        />
 
 </RelativeLayout>

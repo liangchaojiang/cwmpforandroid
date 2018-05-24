@@ -16,6 +16,14 @@ int cpe_get_igd_di_manufactureroui(cwmp_t * cwmp, const char * name, char ** val
     return	FAULT_CODE_OK;
 }
 
+int cpe_get_igd_di_modelname(cwmp_t * cwmp, const char * name, char ** value, pool_t * pool)
+{
+    FUNCTION_TRACE();
+    *value = cwmp_conf_pool_get(pool, "cwmp:cpe_name");
+    return	FAULT_CODE_OK;
+}
+
+
 //InternetGatewayDevice.DeviceInfo.ProductClass
 int cpe_get_igd_di_productclass(cwmp_t * cwmp, const char * name, char ** value, pool_t * pool)
 {
@@ -29,6 +37,13 @@ int cpe_get_igd_di_serialnumber(cwmp_t * cwmp, const char * name, char ** value,
 {
 	FUNCTION_TRACE();
     *value = cwmp_conf_pool_get(pool, "cwmp:cpe_sn");
+    return	FAULT_CODE_OK;
+}
+
+int cpe_get_igd_di_stbid(cwmp_t * cwmp, const char * name, char ** value, pool_t * pool)
+{
+	FUNCTION_TRACE();
+    *value = cwmp_conf_pool_get(pool, "cwmp:cpe_stbid");
     return	FAULT_CODE_OK;
 }
 
